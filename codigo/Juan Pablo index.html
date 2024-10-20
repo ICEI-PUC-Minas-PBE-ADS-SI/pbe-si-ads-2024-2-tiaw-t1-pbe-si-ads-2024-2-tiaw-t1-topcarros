@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comentários sobre Carros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .comment-section {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .comment {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        .comment p {
+            margin: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .rules {
+            background: #f7f7e7;
+            border-left: 4px solid #ffcc00;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Comentários sobre Carros</h1>
+        <p>Compartilhe sua paixão por carros e conheça opiniões de outros entusiastas!</p>
+    </header>
+
+    <div class="comment-section">
+        <div class="rules">
+            <h3>Regras de Comentários:</h3>
+            <ul>
+                <li>Não use palavras ofensivas ou xingamentos.</li>
+                <li>Seja respeitoso e construtivo em suas opiniões.</li>
+                <li>Comentários que violarem as regras não serão exibidos.</li>
+            </ul>
+        </div>
+
+        <h2>Deixe seu comentário!</h2>
+        <form id="commentForm">
+            <div class="form-group">
+                <label for="username">Nome:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="comment">Comentário:</label>
+                <textarea id="comment" rows="4" required></textarea>
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+
+        <h2>Comentários:</h2>
+        <div id="commentsList"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Comentários sobre Carros. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        const forbiddenWords = [
+            "idiota", "estúpido", "burro", "fresco", "palhaço", 
+            "lixo", "pobre", "caraca", "porra", "merda", 
+            "desgraça", "filho da puta", "vagabundo", "viado"
+        ];
+
+        document.getElementById('commentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const comment = document.getElementById('comment').value.trim();
+
+            // Verificação de palavras ofensivas
+            const hasForbiddenWords = forbiddenWords.some(word => comment.toLowerCase().includes(word.toLowerCase()));
+
+            if (hasForbiddenWords) {
+                alert("Seu comentário contém palavras ofensivas e não pode ser publicado.");
+            } else {
+                // Apenas adiciona o comentário se não tiver palavras ofensivas
+                const commentDiv = document.createElement('div');
+                commentDiv.classList.add('comment');
+                commentDiv.innerHTML = <strong>${username}</strong><p>${comment}</p>;
+                document.getElementById('commentsList').appendChild(commentDiv);
+
+                // Limpar o formulário
+                document.getElementById('commentForm').reset();
+            }
+        });
+    </script>
+
+</body>
+</html>
