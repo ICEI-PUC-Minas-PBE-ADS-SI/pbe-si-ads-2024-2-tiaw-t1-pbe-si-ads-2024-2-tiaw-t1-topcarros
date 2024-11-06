@@ -5,14 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carros</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/estilo.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Lista de Carros</h1>
+        <h1 class="text-center mb-4">Pesquisa de Carros</h1>
+
+        <!-- Barra de pesquisa por modelo e ano -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <label for="modelSearch" class="form-label">Modelo</label>
+                <input type="text" id="modelSearch" class="form-control" placeholder="Digite o modelo do carro">
+            </div>
+            <div class="col-md-6">
+                <label for="yearSearch" class="form-label">Ano</label>
+                <input type="number" id="yearSearch" class="form-control" placeholder="Digite o ano do carro">
+            </div>
+        </div>
+
         <div class="row" id="carGrid">
-            <!-- Cartões de carros vão aqui dinamicamente -->
+            <!-- Cartões de carros serão inseridos aqui dinamicamente -->
         </div>
     </div>
 
@@ -25,7 +38,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="carDetails">
-                    <!-- Detalhes do carro vão aqui -->
+                    <!-- Detalhes do carro serão inseridos aqui dinamicamente -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -35,9 +48,10 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>
+
 
 
 //css
@@ -87,54 +101,42 @@ h1 {
 }
 
 
+
 //script,js
 document.addEventListener("DOMContentLoaded", function() {
     const cars = [
-        {
-            id: 1,
-            modelo: "Toyota Corolla",
-            marca: "Toyota",
-            ano: 2022,
-            preco: 120000,
-            tipo: "Sedan",
-            imagem: "https://via.placeholder.com/150",
-            descricao: "Um sedan confortável e econômico."
-        },
-        {
-            id: 2,
-            modelo: "Honda Civic",
-            marca: "Honda",
-            ano: 2021,
-            preco: 110000,
-            tipo: "Sedan",
-            imagem: "https://via.placeholder.com/150",
-            descricao: "Design elegante com excelente desempenho."
-        }
+        { id: 1, modelo: "Toyota Corolla", marca: "Toyota", ano: 2022, preco: 120000, tipo: "Sedan", imagem: "./img/placeholder.png", descricao: "Um sedan confortável e econômico." },
+        { id: 2, modelo: "Honda Civic", marca: "Honda", ano: 2021, preco: 110000, tipo: "Sedan", imagem: "./img/placeholder.png", descricao: "Design elegante com excelente desempenho." },
+        { id: 3, modelo: "Ford Mustang", marca: "Ford", ano: 2020, preco: 250000, tipo: "Esportivo", imagem: "./img/placeholder.png", descricao: "Potente e com um design icônico." }
     ];
 
-    function renderCars(carList) {
-        const carGrid = document.getElementById('carGrid');
-        carGrid.innerHTML = '';
+    const modelSearch = document.getElementById('modelSearch');
+    const yearSearch = document.getElementById('yearSearch');
+    const carGrid = document.getElementById('carGrid');
+    const carDetails = document.getElementById('carDetails');
 
+    function renderCars(carList) {
+        carGrid.innerHTML = '';
         carList.forEach(car => {
             const carCard = document.createElement('div');
             carCard.classList.add('col-md-4', 'car-card');
             carCard.innerHTML = `
                 <img src="${car.imagem}" alt="${car.modelo}">
                 <h5>${car.modelo}</h5>
-                <p>${car.descricao}</p>
+                <p><strong>Ano:</strong> ${car.ano}</p>
                 <p><strong>Preço:</strong> R$ ${car.preco.toLocaleString()}</p>
+                <p>${car.descricao}</p>
                 <button class="btn btn-primary" onclick="showCarDetails(${car.id})">Ver Detalhes</button>
             `;
             carGrid.appendChild(carCard);
         });
     }
 
+    // Função para mostrar detalhes do carro no modal
     window.showCarDetails = function(carId) {
         const car = cars.find(c => c.id === carId);
-        const carDetails = document.getElementById('carDetails');
         carDetails.innerHTML = `
-            <img src="${car.imagem}" alt="${car.modelo}" class="img-fluid">
+            <img src="${car.imagem}" alt="${car.modelo}" class="img-fluid mb-3">
             <h5>${car.modelo}</h5>
             <p><strong>Marca:</strong> ${car.marca}</p>
             <p><strong>Ano:</strong> ${car.ano}</p>
@@ -146,7 +148,23 @@ document.addEventListener("DOMContentLoaded", function() {
         modal.show();
     }
 
-    // Renderiza os carros ao carregar a página
-    renderCars(cars);
+    function filterCars() {
+        const modelText = modelSearch.value.toLowerCase();
+        const yearText = parseInt(yearSearch.value);
+
+        const filteredCars = cars.filter(car => {
+            const matchesModel = modelText === '' || car.modelo.toLowerCase().includes(modelText);
+            const matchesYear = isNaN(yearText) || car.ano === yearText;
+            return matchesModel && matchesYear;
+        });
+
+        renderCars(filteredCars);
+    }
+
+    // Eventos de busca
+    modelSearch.addEventListener('input', filterCars);
+    yearSearch.addEventListener('input', filterCars);
+
+    renderCars(cars); // Renderiza todos os carros ao carregar a página
 });
 
