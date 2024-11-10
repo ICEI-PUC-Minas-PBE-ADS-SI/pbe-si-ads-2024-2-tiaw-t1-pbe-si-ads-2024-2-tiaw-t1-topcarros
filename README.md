@@ -10,7 +10,7 @@ O projeto consiste em uma ideia na qual os usuários poderão ter acesso a difer
 * Juan Pablo
 * Italo Henrique
 * Gabriel Inácio 
-* Humberto 
+ 
 
 ## Professores responsáveis
 
