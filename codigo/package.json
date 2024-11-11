@@ -1,16 +1,248 @@
-{
-  "name": "lab-jsonserver",
-  "version": "1.0.0",
-  "description": "Laboratório de aplicação Web com backend baseado no JSON Server",
-  "main": "index.js",
-  "scripts": {
-   "start": "node index.js"
-  },
-  "keywords": [],
-  "author": "Rommel Vieira Carneiro",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1",
-    "json-server": "^0.17.3"
-  }
+"usuarios": [
+    {
+      "id": 1,
+      "nome": "João Silva",
+      "email": "joao.silva@email.com",
+      "senha": "senha123",
+      "dataCadastro": "2024-09-15"
+    },
+    {
+      "id": 2,
+      "nome": "Maria Oliveira",
+      "email": "maria.oliveira@email.com",
+      "senha": "senha456",
+      "dataCadastro": "2024-09-20"
+    }
+  ],
+  
+  "carros": [
+    {
+      "id": 1,
+      "modelo": "Toyota Corolla",
+      "marca": "Toyota",
+      "ano": 2022,
+      "preco": 120000,
+      "tipo": "Sedan",
+      "imagem": "https://via.placeholder.com/150",
+      "descricao": "Um sedan confortável e econômico.",
+      "adicionadoPor": 1
+    },
+    {
+      "id": 2,
+      "modelo": "Honda Civic",
+      "marca": "Honda",
+      "ano": 2021,
+      "preco": 110000,
+   "tipo": "Sedan",
+      "imagem": "https://via.placeholder.com/150",
+      "descricao": "Design elegante com excelente desempenho.",
+      "adicionadoPor": 2
+    }
+  ],
+
+  "pesquisa": [
+    {
+      "id": 1,
+      "termo": "Toyota",
+      "usuarioId": 1,
+      "data": "2024-10-01"
+    },
+    {
+      "id": 2,
+      "termo": "Sedan",
+      "usuarioId": 2,
+      "data": "2024-10-02"
+    }
+  ],
+
+  "comentarios": [
+    {
+      "id": 1,
+      "carroId": 1,
+      "usuarioId": 2,
+      "comentario": "Ótimo carro para a família!",
+      "data": "2024-10-01"
+    },
+    {
+      "id": 2,
+      "carroId": 2,
+      "usuarioId": 1,
+      "comentario": "Excelente desempenho na estrada.",
+      "data": "2024-10-02"
+    }
+  ],
+
+  "novosCarros": [
+    {
+      "id": 1,
+      "modelo": "Ford Mustang",
+      "marca": "Ford",
+      "ano": 2023,
+      "preco": 250000,
+      "tipo": "Esportivo",
+      "imagem": "https://via.placeholder.com/150",
+      "descricao": "Desempenho poderoso com visual icônico.",
+      "adicionadoPor": 2,
+      "statusAprovacao": "pendente"
+    },
+    {
+      "id": 2,
+      "modelo": "Chevrolet Camaro",
+      "marca": "Chevrolet",
+      "ano": 2023,
+      "preco": 240000,
+      "tipo": "Esportivo",
+      "imagem": "https://via.placeholder.com/150",
+      "descricao": "Carro esportivo com design e potência incríveis.",
+      "adicionadoPor": 1,
+      "statusAprovacao": "aprovado"
+    }
+  ]
 }
+
+avaliacoes: Estrutura para registrar avaliações dos carros, permitindo que usuários atribuam notas e deixem comentários específicos sobre desempenho e custo-benefício.
+favoritos: Estrutura para registrar carros que os usuários marcaram como favoritos, ajudando-os a salvar modelos que têm interesse em rever ou comparar mais tarde.
+json
+Copiar código
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Carlos Andrade",
+      "email": "carlos.andrade@email.com",
+      "senha": "segredo123",
+      "dataCadastro": "2024-09-15"
+    },
+    {
+      "id": 2,
+      "nome": "Ana Pereira",
+      "email": "ana.pereira@email.com",
+      "senha": "senha789",
+      "dataCadastro": "2024-09-20"
+    }
+  ],
+
+  "avaliacoes": [
+    {
+      "id": 1,
+      "carroId": 1,
+      "usuarioId": 2,
+      "nota": 4.5,
+      "comentario": "Ótimo carro, bastante econômico e confortável.",
+      "data": "2024-10-03"
+    },
+    {
+      "id": 2,
+      "carroId": 2,
+      "usuarioId": 1,
+      "nota": 4.8,
+      "comentario": "Excelente desempenho, mas o consumo é alto.",
+      "data": "2024-10-04"
+    }
+  ],
+
+  "favoritos": [
+    {
+      "id": 1,
+      "usuarioId": 1,
+      "carroId": 2,
+      "dataAdicao": "2024-10-05"
+    },
+    {
+      "id": 2,
+      "usuarioId": 2,
+      "carroId": 1,
+      "dataAdicao": "2024-10-06"
+    }
+  ],
+
+  "carros": [
+    {
+      "id": 1,
+      "modelo": "Toyota Corolla",
+      "marca": "Toyota",
+      "ano": 2022,
+      "preco": 120000,
+      "tipo": "Sedan",
+      "imagem": "https://via.placeholder.com/150",
+      "descricao": "Um sedan confortável e econômico.",
+      "adicionadoPor": 1
+    },
+    {
+      "id": 2,
+      "modelo": "Honda Civic",
+      "marca": "Honda",
+      "ano": 2021,
+      "preco": 110000,
+      "tipo": "Sedan",
+      "imagem": "https://via.placeholder.com/150",
+      "descricao": "Design elegante com excelente desempenho.",
+      "adicionadoPor": 2
+    }
+  ]
+}
+Essas duas novas estruturas de dados, avaliacoes e favoritos, adicionam funcionalidades de avaliação e favoritos ao projeto, oferecendo uma melhor experiência ao usuário.
+
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Lucas Martins",
+      "email": "lucas.martins@email.com",
+      "senha": "seguro123",
+      "dataCadastro": "2024-09-15"
+    },
+    {
+      "id": 2,
+      "nome": "Julia Castro",
+      "email": "julia.castro@email.com",
+      "senha": "senha456",
+      "dataCadastro": "2024-09-20"
+    }
+  ],
+
+  "carros": [
+    {
+      "id": 1,
+      "modelo": "Toyota Corolla",
+      "marca": "Toyota",
+      "ano": 2022,
+      "preco": 120000,
+      "tipo": "Sedan",
+      "imagem": "https://via.placeholder.com/150",
+      "descricao": "Um sedan confortável e econômico.",
+      "adicionadoPor": 1
+    },
+    {
+      "id": 2,
+      "modelo": "Honda Civic",
+      "marca": "Honda",
+      "ano": 2021,
+      "preco": 110000,
+      "tipo": "Sedan",
+      "imagem": "https://via.placeholder.com/150",
+      "descricao": "Design elegante com excelente desempenho.",
+      "adicionadoPor": 2
+    }
+  ],
+
+  "revisoes": [
+    {
+      "id": 1,
+      "carroId": 1,
+      "dataRevisao": "2024-08-15",
+      "quilometragem": 15000,
+      "servicosRealizados": "Troca de óleo, alinhamento e balanceamento",
+      "custo": 500
+    },
+    {
+      "id": 2,
+      "carroId": 2,
+      "dataRevisao": "2024-09-10",
+      "quilometragem": 20000,
+      "servicosRealizados": "Troca de filtro de ar e revisão dos freios",
+      "custo": 400
+    }
+  ]
+}
+A estrutura revisoes agrega valor ao site, permitindo que os usuários acompanhem a manutenção e os custos envolvidos com cada carro.
