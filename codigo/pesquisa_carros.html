@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa de Carros</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <style>
+        /* Ajusta as imagens para ter o mesmo tamanho, sem distorcer */
+        .car-card img {
+            width: 100%; /* A imagem ocupará toda a largura do container */
+            height: 200px; /* A altura da imagem será 200px, para todas as imagens */
+            object-fit: cover; /* Mantém a proporção da imagem e corta o excesso, se necessário */
+        }
+
+        .modal-body img {
+            width: 100%; /* Para imagens grandes no modal */
+            height: auto; /* Ajusta a altura automaticamente, mas mantendo a proporção */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Pesquisa de Carros</h1>
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <label for="modelSearch" class="form-label">Modelo</label>
+                <input type="text" id="modelSearch" class="form-control" placeholder="Digite o modelo do carro">
+            </div>
+            <div class="col-md-6">
+                <label for="yearSearch" class="form-label">Ano</label>
+                <input type="number" id="yearSearch" class="form-control" placeholder="Digite o ano do carro">
+            </div>
+        </div>
+
+        <div class="row" id="carGrid">
+            <!-- Carros carregados dinamicamente -->
+        </div>
+
+        <button class="btn btn-success" onclick="window.location.href='adicionar_carro.html'">Adicionar Carro</button>
+    </div>
+
+    <!-- Modal para detalhes do carro -->
+    <div class="modal fade" id="carModal" tabindex="-1" aria-labelledby="carModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="carModalLabel">Detalhes do Carro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="carDetails">
+                    <!-- Detalhes do carro serão exibidos aqui -->
+                </div>
+
+                <!-- Seção de Comentários -->
+                <div class="modal-footer">
+                    <h5>Avaliações de Usuários</h5>
+                    <div id="carComments">
+                        <!-- Comentários serão exibidos aqui -->
+                    </div>
+
+                    <div>
+                        <label for="usernameInput">Seu Nome:</label>
+                        <input type="text" id="usernameInput" class="form-control" placeholder="Digite seu nome" />
+                    </div>
+                    
+                    <textarea id="carCommentInput" class="form-control" rows="3" placeholder="Adicione um comentário..."></textarea>
+                    <button type="button" class="btn btn-primary mt-2" onclick="addComment()">Adicionar Comentário</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Função para carregar os carros e seus comentários
+        window.onload = function() {
+            loadCars();
+            // Adiciona os eventos de filtro para os campos de pesquisa
+            document.getElementById('modelSearch').addEventListener('input', filterCars);
+            document.getElementById('yearSearch').addEventListener('input', filterCars);
+        };
+
+        // Carregar os carros do localStorage e exibir
+        function loadCars() {
+            let cars = JSON.parse(localStorage.getItem('cars')) || [];
+            const carGrid = document.getElementById('carGrid');
+            carGrid.innerHTML = ''; // Limpar o grid antes de preencher
+
+            cars.forEach(function(car, index) {
+                const carCard = document.createElement('div');
+                carCard.classList.add('col-md-4', 'mb-4');
+                carCard.innerHTML = `
+                    <div class="card car-card" data-bs-toggle="modal" data-bs-target="#carModal" onclick="showCarDetails(${index})">
+                        <img src="${getCarImage(car)}" class="card-img-top" alt="Imagem do Carro">
+                        <div class="card-body">
+                            <h5 class="card-title">${car.model}</h5>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger btn-sm mt-2" onclick="deleteCar(${index})">Excluir Anúncio</button>
+                `;
+                carGrid.appendChild(carCard);
+            });
+        }
+
+        // Função para garantir que a imagem seja carregada corretamente
+        function getCarImage(car) {
+            if (car.photos && car.photos.length > 0) {
+                return car.photos[0];  // Retorna a URL de dados da foto (ou a URL salva no LocalStorage)
+            }
+            return 'https://via.placeholder.com/300x300'; // Caso não tenha foto, usa uma imagem padrão
+        }
+
+        // Exibir detalhes do carro no modal
+        function showCarDetails(index) {
+            let cars = JSON.parse(localStorage.getItem('cars')) || [];
+            const car = cars[index];
+
+            const carDetails = document.getElementById('carDetails');
+            carDetails.innerHTML = `
+                <div class="card mb-4">
+                    <h5 class="card-header">Informações do Carro</h5>
+                    <div class="card-body">
+                        <p><strong>Modelo:</strong> ${car.model}</p>
+                        <p><strong>Ano:</strong> ${car.year}</p>
+                        <p><strong>Marca:</strong> ${car.brand}</p>
+                        <p><strong>Preço:</strong> R$ ${car.price}</p>
+                        <p><strong>Status de Conservação:</strong> ${car.condition}</p>
+                        <p><strong>Descrição:</strong> ${car.description || 'Nenhuma descrição fornecida.'}</p>
+                    </div>
+                </div>
+
+                <h6>Fotos:</h6>
+                <div class="row">
+                    ${car.photos ? car.photos.map(photo => `<div class="col-4 mb-3"><img src="${photo}" class="img-fluid" alt="Imagem do carro"></div>`).join('') : 'Nenhuma foto disponível.'}
+                </div>
+            `;
+
+            // Atualizar a seção de comentários
+            updateComments(index);
+            document.getElementById('carModal').setAttribute('data-car-index', index);
+        }
+
+        // Atualizar os comentários no modal
+        function updateComments(index) {
+            let cars = JSON.parse(localStorage.getItem('cars')) || [];
+            const car = cars[index];
+            const commentsSection = document.getElementById('carComments');
+
+            if (car.comments && car.comments.length > 0) {
+                commentsSection.innerHTML = car.comments.map((comment, commentIndex) => {
+                    return `
+                        <div class="comment-card mb-3">
+                            <strong>${comment.username}</strong>: 
+                            <p>${comment.comment}</p>
+                            <button class="btn btn-danger btn-sm" onclick="deleteComment(${index}, ${commentIndex})">Excluir</button>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                commentsSection.innerHTML = '<p>Nenhum comentário ainda. Seja o primeiro a avaliar!</p>';
+            }
+        }
+
+        // Função para excluir comentário
+        function deleteComment(carIndex, commentIndex) {
+            let cars = JSON.parse(localStorage.getItem('cars')) || [];
+            cars[carIndex].comments.splice(commentIndex, 1); // Remove o comentário do array
+
+            // Atualizar os carros no localStorage
+            localStorage.setItem('cars', JSON.stringify(cars));
+
+            // Atualizar a seção de comentários
+            updateComments(carIndex);
+        }
+
+        // Função para excluir anúncio de carro
+        function deleteCar(index) {
+            if (confirm("Tem certeza que deseja excluir este anúncio?")) {
+                let cars = JSON.parse(localStorage.getItem('cars')) || [];
+                cars.splice(index, 1); // Remove o carro da lista
+
+                // Atualizar o localStorage após excluir o carro
+                localStorage.setItem('cars', JSON.stringify(cars));
+
+                // Recarregar a lista de carros
+                loadCars();
+            }
+        }
+
+        // Adicionar comentário ao carro
+        function addComment() {
+            const index = document.getElementById('carModal').getAttribute('data-car-index');
+            const commentInput = document.getElementById('carCommentInput');
+            const usernameInput = document.getElementById('usernameInput');
+            const comment = commentInput.value.trim();
+            const username = usernameInput.value.trim();
+
+            if (comment && username) {
+                let cars = JSON.parse(localStorage.getItem('cars')) || [];
+                cars[index].comments = cars[index].comments || [];
+                cars[index].comments.push({ username: username, comment: comment });
+
+                // Atualizar os carros no localStorage
+                localStorage.setItem('cars', JSON.stringify(cars));
+
+                // Atualizar a seção de comentários
+                updateComments(index);
+
+                // Limpar os campos de comentário
+                commentInput.value = '';
+                usernameInput.value = '';
+            } else {
+                alert('Por favor, escreva um comentário e insira seu nome antes de adicionar.');
+            }
+        }
+
+        // Função para filtrar os carros
+        function filterCars() {
+            const model = document.getElementById('modelSearch').value.toLowerCase();
+            const year = document.getElementById('yearSearch').value;
+
+            let cars = JSON.parse(localStorage.getItem('cars')) || [];
+            const filteredCars = cars.filter(car => {
+                const matchModel = model ? car.model.toLowerCase().includes(model) : true;
+                const matchYear = year ? car.year == year : true;
+                return matchModel && matchYear;
+            });
+
+            const carGrid = document.getElementById('carGrid');
+            carGrid.innerHTML = ''; // Limpar o grid antes de preencher
+
+            filteredCars.forEach(function(car, index) {
+                const carCard = document.createElement('div');
+                carCard.classList.add('col-md-4', 'mb-4');
+                carCard.innerHTML = `
+                    <div class="card car-card" data-bs-toggle="modal" data-bs-target="#carModal" onclick="showCarDetails(${index})">
+                        <img src="${getCarImage(car)}" class="card-img-top" alt="Imagem do Carro">
+                        <div class="card-body">
+                            <h5 class="card-title">${car.model}</h5>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger btn-sm mt-2" onclick="deleteCar(${index})">Excluir Anúncio</button>
+                `;
+                carGrid.appendChild(carCard);
+            });
+        }
+    </script>
+</body>
+</html>
