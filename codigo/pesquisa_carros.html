@@ -219,33 +219,34 @@
         }
 
         // Função para filtrar os carros
-        function filterCars() {
-            const model = document.getElementById('modelSearch').value.toLowerCase();
-            const year = document.getElementById('yearSearch').value;
+       function filterCars() {
+    const model = document.getElementById('modelSearch').value.toLowerCase();
+    const year = document.getElementById('yearSearch').value;
 
-            let cars = JSON.parse(localStorage.getItem('cars')) || [];
-            const filteredCars = cars.filter(car => {
-                const matchModel = model ? car.model.toLowerCase().includes(model) : true;
-                const matchYear = year ? car.year == year : true;
-                return matchModel && matchYear;
-            });
+    let cars = JSON.parse(localStorage.getItem('cars')) || [];
+    const filteredCars = cars.map((car, originalIndex) => ({ car, originalIndex }))
+        .filter(({ car }) => {
+            const matchModel = model ? car.model.toLowerCase().includes(model) : true;
+            const matchYear = year ? car.year == year : true;
+            return matchModel && matchYear;
+        });
 
-            const carGrid = document.getElementById('carGrid');
-            carGrid.innerHTML = ''; // Limpar o grid antes de preencher
+    const carGrid = document.getElementById('carGrid');
+    carGrid.innerHTML = ''; // Limpar o grid antes de preencher
 
-            filteredCars.forEach(function(car, index) {
-                const carCard = document.createElement('div');
-                carCard.classList.add('col-md-4', 'mb-4');
-                carCard.innerHTML = `
-                    <div class="card car-card" data-bs-toggle="modal" data-bs-target="#carModal" onclick="showCarDetails(${index})">
-                        <img src="${getCarImage(car)}" class="card-img-top" alt="Imagem do Carro">
-                        <div class="card-body">
-                            <h5 class="card-title">${car.model}</h5>
-                        </div>
-                    </div>
-                    <button class="btn btn-danger btn-sm mt-2" onclick="deleteCar(${index})">Excluir Anúncio</button>
-                `;
-                carGrid.appendChild(carCard);
+    filteredCars.forEach(({ car, originalIndex }) => {
+        const carCard = document.createElement('div');
+        carCard.classList.add('col-md-4', 'mb-4');
+        carCard.innerHTML = `
+            <div class="card car-card" data-bs-toggle="modal" data-bs-target="#carModal" onclick="showCarDetails(${originalIndex})">
+                <img src="${getCarImage(car)}" class="card-img-top" alt="Imagem do Carro">
+                <div class="card-body">
+                    <h5 class="card-title">${car.model}</h5>
+                </div>
+            </div>
+            <button class="btn btn-danger btn-sm mt-2" onclick="deleteCar(${originalIndex})">Excluir Anúncio</button>
+        `;
+        carGrid.appendChild(carCard);
             });
         }
     </script>
