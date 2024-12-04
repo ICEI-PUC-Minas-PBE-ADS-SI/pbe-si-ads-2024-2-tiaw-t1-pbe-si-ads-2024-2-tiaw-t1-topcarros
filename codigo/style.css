@@ -10,7 +10,18 @@ body {
     align-items: center;
     justify-content: center;
 }
-
+#logo-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    background-color: #fff; /* Fundo branco para separar da página */
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
+    z-index: 1000; /* Garante que o container fique acima do conteúdo */
+    display: flex;
+    align-items: center;
+}
 /* Container geral */
 .container {
     width: 80%;
@@ -21,22 +32,10 @@ body {
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 }
 
-#logo {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 80px; /* Ajuste a largura desejada */
-    height: 80px; /* Ajuste a altura desejada */
-    border-radius: 50%; /* Manter arredondada, se necessário */
-    object-fit: cover; /* Ajustar a imagem ao contorno */
-    z-index: 1000; /* Garantir que esteja sobre outros elementos */
-}
-
-
 /* Logo no canto superior esquerdo */
 #logo {
-    width: 80px !important;
-    height: 80px !important;
+    width: 60px !important;
+    height: 60px !important;
 }
 
 
