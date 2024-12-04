@@ -21,6 +21,18 @@ body {
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 }
 
+#logo {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 80px; /* Ajuste a largura desejada */
+    height: 80px; /* Ajuste a altura desejada */
+    border-radius: 50%; /* Manter arredondada, se necessário */
+    object-fit: cover; /* Ajustar a imagem ao contorno */
+    z-index: 1000; /* Garantir que esteja sobre outros elementos */
+}
+
+
 /* Logo no canto superior esquerdo */
 #logo {
     width: 80px !important;
