@@ -16,7 +16,7 @@ body {
 .container {
     width: 400px;
     padding: 40px;
-    background: url('interd.png') no-repeat center center;
+    background: url('codigo/interd.png') no-repeat center center;
     background-size: cover; /* Ajusta a imagem ao tamanho do container */
     border-radius: 8px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
