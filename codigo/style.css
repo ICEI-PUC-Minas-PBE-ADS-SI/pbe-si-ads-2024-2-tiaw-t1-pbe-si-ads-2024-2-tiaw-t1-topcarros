@@ -10,7 +10,18 @@ body {
     align-items: center;
     justify-content: center;
 }
-
+#logo-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* Fundo branco para separar da página */
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
+    z-index: 1000; /* Garante que o container fique acima do conteúdo */
+    display: flex;
+    align-items: center;
+}
 /* Container geral */
 .container {
     width: 80%;
