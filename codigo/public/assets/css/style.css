@@ -4,6 +4,10 @@ body {
     background-color: #f4f4f4;
     color: #333;
 }
+#logo {
+  width: 150px;  /* Tamanho do logo */
+  height: auto;  /* Manter a proporção */
+}
 
 /* Detalhes do Carro */
 #carDetails {
