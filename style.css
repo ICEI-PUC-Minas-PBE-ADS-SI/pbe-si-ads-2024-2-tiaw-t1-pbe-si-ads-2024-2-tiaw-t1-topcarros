@@ -10,39 +10,55 @@ body {
     align-items: center;
     justify-content: center;
 }
-#logo-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fff; /* Fundo branco para separar da página */
-    padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
-    z-index: 1000; /* Garante que o container fique acima do conteúdo */
-    display: flex;
-    align-items: center;
-}
+
 /* Container geral */
+/* Container do formulário com a imagem de fundo */
 .container {
-    width: 80%;
-    max-width: 1200px;
-    padding: 20px;
-    background-color: #fff;
+    width: 400px;
+    padding: 40px;
+    background: url('public/assets/images/interd.png') no-repeat center center;
+    background-size: cover; /* Ajusta a imagem ao tamanho do container */
     border-radius: 8px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative; /* Necessário para adicionar fundo branco em elementos sobrepostos */
+}
+
+/* Fundo branco para os campos e textos */
+.container input,
+.container label,
+.container button {
+    background-color: #fff;
+    z-index: 1; /* Garante que fique sobre a imagem */
+    position: relative; /* Para isolamento dos elementos */
+}
+
+/* Fundo branco com opacidade leve para contraste */
+.container {
+    background-color: rgba(255, 255, 255, 0.8); /* Branco translúcido */
+}
+
+/* Margem superior entre os elementos para espaçamento */
+.container label {
+    padding: 5px;
+    display: block;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #000;
+    background-color: rgba(255, 255, 255, 0.9); /* Leve transparência */
+    padding: 5px;
+    border-radius: 4px;
 }
 
 /* Logo no canto superior esquerdo */
 #logo {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 100px; /* Tamanho do logo */
-    height: 150px; /* Manter a imagem quadrada */
-    border-radius: 50%; /* Tornar a imagem arredondada */
-    object-fit: cover; /* Ajustar a imagem ao contorno */
-    z-index: 1000; /* Garantir que esteja sobre os outros elementos */
+    width: 60px !important;
+    height: 60px !important;
 }
+
 
 /* Conteúdo centralizado */
 .content {
