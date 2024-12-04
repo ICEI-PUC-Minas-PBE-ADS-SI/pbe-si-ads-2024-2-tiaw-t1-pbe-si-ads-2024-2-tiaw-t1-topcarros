@@ -34,8 +34,16 @@ body {
 
 /* Logo no canto superior esquerdo */
 #logo {
-    width: 60px !important;
-    height: 60px !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%;
+    
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
+    z-index: 1000; /* Garante que o container fique acima do conteúdo */
+    display: flex;
+    align-items: center;
 }
 
 
