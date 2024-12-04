@@ -6,8 +6,11 @@ body {
 }
 #logo {
   width: 150px;  /* Tamanho do logo */
-  height: auto;  /* Manter a proporção */
+  height: 150px;  /* Manter a imagem quadrada */
+  border-radius: 50%;  /* Tornar a imagem arredondada */
+  object-fit: cover;  /* Garantir que a imagem se ajuste corretamente ao contorno */
 }
+
 
 /* Detalhes do Carro */
 #carDetails {
