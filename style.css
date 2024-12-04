@@ -37,7 +37,7 @@ body {
     position: fixed;
     top: 20px;
     left: 20px;
-    width: 150px; /* Tamanho do logo */
+    width: 100px; /* Tamanho do logo */
     height: 150px; /* Manter a imagem quadrada */
     border-radius: 50%; /* Tornar a imagem arredondada */
     object-fit: cover; /* Ajustar a imagem ao contorno */
