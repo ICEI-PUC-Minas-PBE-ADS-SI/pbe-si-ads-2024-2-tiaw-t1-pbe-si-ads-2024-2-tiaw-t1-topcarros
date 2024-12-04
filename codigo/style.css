@@ -19,7 +19,7 @@ body {
     left: 20px;
     width: 100px; /* Ajustar conforme necessário */
     height: auto;
-    z-index: 10; /* Garante que fique sobre os outros elementos */
+    z-index: 10; /* Garante que fique sobre os outros elements */
 }
 
 /* Container geral do formulário */
