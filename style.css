@@ -3,19 +3,62 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     color: #333;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+/* Container geral */
+.container {
+    width: 80%;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo no canto superior esquerdo */
+#logo {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 150px; /* Tamanho do logo */
+    height: 150px; /* Manter a imagem quadrada */
+    border-radius: 50%; /* Tornar a imagem arredondada */
+    object-fit: cover; /* Ajustar a imagem ao contorno */
+    z-index: 1000; /* Garantir que esteja sobre os outros elementos */
+}
+
+/* Conteúdo centralizado */
+.content {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    #logo {
+        width: 100px;
+        height: 100px;
+    }
+}
+
 
 /* Detalhes do Carro */
 #carDetails {
     margin-top: 20px;
     font-size: 1rem;
 }
-#logo {
-  width: 150px;  /* Tamanho do logo */
-  height: 150px;  /* Manter a imagem quadrada */
-  border-radius: 50%;  /* Tornar a imagem arredondada */
-  object-fit: cover;  /* Garantir que a imagem se ajuste corretamente ao contorno */
-}
+
 
 
 #carDetails h5 {
