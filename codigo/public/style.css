@@ -10,6 +10,13 @@ body {
     margin-top: 20px;
     font-size: 1rem;
 }
+#logo {
+  width: 150px;  /* Tamanho do logo */
+  height: 150px;  /* Manter a imagem quadrada */
+  border-radius: 50%;  /* Tornar a imagem arredondada */
+  object-fit: cover;  /* Garantir que a imagem se ajuste corretamente ao contorno */
+}
+
 
 #carDetails h5 {
     font-size: 1.75rem;
