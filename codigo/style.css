@@ -1,26 +1,56 @@
 /* Estilos gerais */
+/* Estilos gerais */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #000 !important; /* Fundo preto com prioridade */
     color: #333;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    min-height: 100vh; /* Garante que o body ocupe toda a altura da viewport */
     display: flex;
+    flex-direction: column; /* Organiza os elementos verticalmente */
     align-items: center;
-    justify-content: center;
-    position: relative;
 }
 
+/* Rodapé */
+footer {
+    background-color: #333; /* Fundo escuro */
+    color: white; /* Texto branco */
+    padding: 20px; /* Espaçamento interno */
+    text-align: center; /* Texto centralizado */
+    width: 100%; /* Ocupa toda a largura */
+    margin-top: auto; /* Faz o rodapé ser empurrado para o final */
+}
+
+footer h3 {
+    margin-bottom: 10px; /* Espaçamento inferior do título */
+    font-size: 1.5em; /* Tamanho do título */
+}
+
+footer ul {
+    list-style: none; /* Remove marcadores */
+    padding: 0; /* Remove preenchimento padrão */
+    margin-bottom: 10px; /* Espaçamento inferior da lista */
+}
+
+footer ul li {
+    margin: 5px 0; /* Espaçamento entre os itens da lista */
+}
+
+footer p {
+    margin: 5px 0; /* Espaçamento inferior */
+    font-size: 0.9em; /* Texto menor */
+}
 
 /* Logo no topo */
 #logo {
     position: absolute; /* Sobrepõe ao fundo */
     top: 20px;
     left: 20px;
-    width: 100px; /* Ajustar conforme necessário */
+    width: 80px; /* Ajustar conforme necessário */
     height: auto;
-    z-index: 10; /* Garante que fique sobre os outros elements */
+    z-index: 10; /* Garante que fique sobre os outros elementos */
+    border-radius: 10px; /* Ajuste o valor para controlar o arredondamento */
 }
 
 /* Container geral do formulário */
@@ -31,9 +61,25 @@ body {
     border-radius: 8px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
     text-align: center;
-    position: relative; /* Para evitar conflitos com outros elementos */
-    z-index: 5; /* Garante que fique acima do fundo preto */
 }
+
+
+
+
+/* Logo no topo */
+#logo {
+    position: absolute; /* Sobrepõe ao fundo */
+    top: 20px;
+    left: 20px;
+    width: 80px; /* Ajustar conforme necessário */
+    height: auto;
+    z-index: 10; /* Garante que fique sobre os outros elementos */
+    border-radius: 10px; /* Ajuste o valor para controlar o arredondamento */
+}
+
+
+/* Container geral do formulário */
+
 
 /* Títulos */
 h1 {
