@@ -34,15 +34,10 @@ body {
 
 /* Logo no canto superior esquerdo */
 #logo {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 100px; /* Tamanho do logo */
-    height: 150px; /* Manter a imagem quadrada */
-    border-radius: 50%; /* Tornar a imagem arredondada */
-    object-fit: cover; /* Ajustar a imagem ao contorno */
-    z-index: 1000; /* Garantir que esteja sobre os outros elementos */
+    width: 80px !important;
+    height: 80px !important;
 }
+
 
 /* Conteúdo centralizado */
 .content {
